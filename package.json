@@ -1,0 +1,23 @@
+{
+  "name": "spotting_iss",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yani5752000/spotting_iss.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yani5752000/spotting_iss/issues"
+  },
+  "homepage": "https://github.com/yani5752000/spotting_iss#readme",
+  "dependencies": {
+    "request": "^2.88.2"
+  }
+}
