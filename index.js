@@ -1,45 +1,23 @@
-// const {fetchMyIP} = require("./iss");
+const { nextISSTimesForMyLocation } = require('./iss');
 
-// fetchMyIP((error, ip) => {
-//     if(error) {
-//         console.log("Error fetch details: ", error);
-//     } else {
-//         console.log("ip is: ", ip);
-//     }
-// })
 
-const { CookieJar } = require('tough-cookie');
-const { fetchMyIP, fetchCoordsByIP } = require('./iss');
-
-fetchMyIP((error, ip) => {
-  if (error) {
-    console.log("It didn't work!" , error);
-    return;
+const printPasses = (results) => {
+  // for(const result of results) {
+  //     const date_time = new Date(result.risetime);
+  //     console.log(`Next pass at ${date_time} for ${result.duration} seconds!`);
+  // }
+  for (const pass of results) {
+    const datetime = new Date(0);
+    datetime.setUTCSeconds(pass.risetime);
+    const duration = pass.duration;
+    console.log(`Next pass at ${datetime} for ${duration} seconds!`);
   }
+}
 
-  console.log('It worked! Returned IP:' , ip);
-  console.log("type of ip is: ", typeof ip);
-//   fetchCoordsByIP(ip, (error, coordinates) => {
-//     if (error) {
-//         console.log("Fetching the coordinates did not work!", error);
-//         return;
-//     }
-
-//     console.log('It worked! Returned coordinates!');
-//     console.log("Latitude: ", coordinates.latitude);
-//     console.log("Longitude: ", coordinates.longitude);
-//     console.log("type of cooridinates is: ", typeof coordinates);
-//   })
+nextISSTimesForMyLocation((error, passTimes) => {
+  if (error) {
+    return console.log("It didn't work!", error);
+  }
+  // success, print out the deets!
+  printPasses(passTimes);
 });
-
-// fetchCoordsByIP("174.112.35.107", (error, coordinates) => {
-//     if (error) {
-//         console.log("Fetching the coordinates did not work!", error);
-//         return;
-//     }
-
-//     console.log('It worked! Returned coordinates:', coordinates);
-//     console.log("Latitude: ", coordinates.latitude);
-//     console.log("Longitude: ", coordinates.longitude);
-//     console.log("type of cooridinates is: ", typeof coordinates);
-//   })
