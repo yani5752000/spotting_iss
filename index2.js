@@ -1,4 +1,4 @@
-const {fetchMyIP, fetchCoords, fetchPasses} = require("./iss_promised");
+const { nextISSTimesForMyLocation } = require("./iss_promised");
 
 const printPasses = (passes) => {
     for (const pass of passes) {
@@ -10,22 +10,11 @@ const printPasses = (passes) => {
   }
 
 
-fetchMyIP()
-    .then((result) => {
-        const ip = JSON.parse(result).ip;
-        return fetchCoords(ip);
+nextISSTimesForMyLocation()
+    .then(passes => {
+        printPasses(passes)
     })
-    .then((result) => {
-        const data = JSON.parse(result);
-        const {latitude, longitude} = data;
-        return fetchPasses({latitude, longitude});
+    .catch(error => {
+        console.log("It did'nt work.", error.message);
     })
-    .then((result) => {
-        const data = JSON.parse(result);
-        const passes = data.response;
-        printPasses(passes);
-    })
-    .catch((error) => {
-        console.log("tyopeOf error = ", typeof error);
-        console.log(error);
-    })
+
